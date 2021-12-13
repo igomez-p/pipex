@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:55:00 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/13 18:43:49 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/13 18:47:38 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void	free_double(char **str)
 void	read_stack(t_data *d, int argc, char **argv, char **envp)
 {
 	char **paths;
+	char **tmp_cmd1;
+	char **tmp_cmd2;
 
 	if (argc != 5)
 		clean_exit(d, FAIL);
@@ -48,9 +50,12 @@ void	read_stack(t_data *d, int argc, char **argv, char **envp)
 		while (!ft_strnstr(*envp, PATH, 4))
 			envp++;
 		paths = ft_split(*envp + 5, ':');
-		// TODO: enviar los comandos principales (por ej: de "ls -l" enviar solo "ls")
-		check_command(d, argv[2], argv[3], paths);
+		tmp_cmd1 = ft_split(argv[2], ' ');
+		tmp_cmd2 = ft_split(argv[3], ' ');
+		check_command(d, tmp_cmd1[0], tmp_cmd2[0], paths);
 		free_double(paths);
+		free_double(tmp_cmd1);
+		free_double(tmp_cmd2);
 		if (!d->path1 || !d->path2 || !check_files(d, argv[1], argv[4]))
 			clean_exit(d, FAIL);
 		d->cmd1 = argv[2];
