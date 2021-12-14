@@ -6,7 +6,7 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:55:00 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/14 19:22:38 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/14 19:54:58 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,14 @@ void	read_stack(t_data *d, int argc, char **argv, char **envp)
 		d->cmd1 = argv[2];
 		d->cmd2 = argv[3];
 	}
+}
+
+void	pipex_process(t_data *d)
+{
+	int		fd[2];
+	pid_t	pid;
+
+	if (pipe(fd) == -1)
+		clean_exit(d, FAIL);
+	pid = fork();
 }
