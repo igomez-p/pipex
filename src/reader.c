@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:55:00 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/13 18:47:38 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/14 19:22:38 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static void	free_double(char **str)
 
 void	read_stack(t_data *d, int argc, char **argv, char **envp)
 {
-	char **paths;
-	char **tmp_cmd1;
-	char **tmp_cmd2;
+	char	**paths;
+	char	**tmp_cmd1;
+	char	**tmp_cmd2;
 
 	if (argc != 5)
 		clean_exit(d, FAIL);

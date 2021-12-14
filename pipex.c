@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:24 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/13 18:41:52 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/14 19:19:40 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int main (int argc, char *argv[], char **envp)
+int	main(int argc, char *argv[], char **envp)
 {
-	t_data data;
-	
+	t_data	data;
+
 	init_struct(&data);
 	read_stack(&data, argc, argv, envp);
 	printf("FILE 1: %s\n", data.file1);
