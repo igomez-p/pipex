@@ -6,11 +6,11 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 16:48:28 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/15 17:46:19 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/15 18:00:43 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "pipex.h"
 
 int	check_files(t_data *d, char *file1, char *file2)
 {
@@ -52,6 +52,21 @@ void	check_command(t_data *d, char *cmd1, char *cmd2, char **paths)
 		if (d->path1 && d->path2)
 			break ;
 	}
+}
+
+void	free_double(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		str[i] = NULL;
+		i++;
+	}
+	free(str);
+	str = NULL;
 }
 
 void	clean_exit(t_data *d, int error)
