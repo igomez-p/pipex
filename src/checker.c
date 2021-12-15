@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 16:48:28 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/15 17:16:53 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/15 17:46:19 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,9 @@ void	clean_exit(t_data *d, int error)
 		close(d->fd1);
 	if (d->fd2)
 		close(d->fd2);
+	if (d->c1)
+		free_double(d->c1);
+	if (d->c2)
+		free_double(d->c2);
 	exit(1);
 }

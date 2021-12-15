@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:21 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/15 17:02:29 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/15 17:46:55 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_data {
 	char		*cmd2;
 	int			fd1;
 	int			fd2;
+	char		**c1;
+	char		**c2;
 }				t_data;
 
 void	init_struct(t_data *d);
@@ -43,6 +45,7 @@ void	check_command(t_data *d, char *cmd1, char *cmd2, char **paths);
 void	clean_exit(t_data *d, int error);
 void	read_stack(t_data *d, int argc, char **argv, char **envp);
 void	pipex_process(t_data *d, char **envp);
+void	free_double(char **str);
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t l);
 char	**ft_split(char const *s1, char c);
