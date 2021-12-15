@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
+/*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:21 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/14 19:21:11 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/15 17:02:29 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_data {
 	char		*path2;
 	char		*cmd1;
 	char		*cmd2;
+	int			fd1;
+	int			fd2;
 }				t_data;
 
 void	init_struct(t_data *d);
@@ -40,6 +42,7 @@ int		check_files(t_data *d, char *file1, char *file2);
 void	check_command(t_data *d, char *cmd1, char *cmd2, char **paths);
 void	clean_exit(t_data *d, int error);
 void	read_stack(t_data *d, int argc, char **argv, char **envp);
+void	pipex_process(t_data *d, char **envp);
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t l);
 char	**ft_split(char const *s1, char c);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
+/*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:24 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/14 19:19:40 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/15 17:02:44 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int	main(int argc, char *argv[], char **envp)
 	printf("PATH 2: %s\n", data.path2);
 	printf("COMMAND 1: %s\n", data.cmd1);
 	printf("COMMAND 2: %s\n", data.cmd2);
+	pipex_process(&data, envp);
 	return (0);
 }

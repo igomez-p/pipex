@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
+/*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 16:48:28 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/14 19:22:19 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/15 17:16:53 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,12 @@
 
 int	check_files(t_data *d, char *file1, char *file2)
 {
-	int	fd;
-
-	fd = open(file1, O_RDONLY);
-	if (fd == -1)
+	d->fd1 = open(file1, O_RDONLY);
+	if (d->fd1 == -1)
 		return (FAIL);
-	close(fd);
-	fd = open(file2, O_CREAT | O_RDWR, 0775);
-	if (fd == -1)
+	d->fd2 = open(file2, O_CREAT | O_RDWR, 0775);
+	if (d->fd2 == -1)
 		return (FAIL);
-	close(fd);
 	d->file1 = file1;
 	d->file2 = file2;
 	return (OK);
@@ -62,9 +58,13 @@ void	clean_exit(t_data *d, int error)
 {
 	if (error == FAIL)
 		write(1, "Error\n", 6);
-	if (d->cmd1)
-		free(d->cmd1);
-	if (d->cmd2)
-		free(d->cmd2);
+	if (d->path1)
+		free(d->path1);
+	if (d->path2)
+		free(d->path2);
+	if (d->fd1)
+		close(d->fd1);
+	if (d->fd2)
+		close(d->fd2);
 	exit(1);
 }
