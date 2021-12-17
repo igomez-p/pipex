@@ -6,7 +6,7 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 16:48:28 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/17 16:53:27 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:46:44 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int	check_files(t_data *d, char *file1, char *file2)
 	int	fd1;
 	int	fd2;
 
-	fd1 = open(file1, O_RDONLY, 0777);
+	fd1 = open(file1, O_RDONLY, 0644);
 	if (fd1 == -1)
 		return (FAIL);
-	fd2 = open(file2, O_CREAT | O_RDWR, 0777);
+	fd2 = open(file2, O_CREAT | O_RDWR, 0644);
 	if (fd2 == -1)
 		return (FAIL);
 	d->file1 = file1;
