@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:24 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/15 18:00:17 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/16 21:09:18 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	init_struct(t_data *d)
 	d->path2 = NULL;
 	d->cmd1 = NULL;
 	d->cmd2 = NULL;
-	d->fd1 = 0;
-	d->fd2 = 0;
 	d->c1 = NULL;
 	d->c2 = NULL;
 }
@@ -48,31 +46,64 @@ void	read_stack(t_data *d, int argc, char **argv, char **envp)
 	}
 }
 
+static void	child_process(t_data *d, int *fd, char **envp)
+{
+	int	fd1;
+
+	fd1 = open(d->file1, O_RDONLY, 0777);
+	if (fd1 == -1)
+		clean_exit(d, FAIL);
+	if (dup2(fd[1], STDOUT_FILENO) == -1)
+		clean_exit(d, FAIL);
+	if (dup2(fd1, STDIN_FILENO) == -1)
+		clean_exit(d, FAIL);
+	close(fd[0]);
+	close(fd1);
+	close(fd[1]);
+	if (execve(d->path1, d->c1, envp) == -1)
+		clean_exit(d, FAIL);
+}
+
+static void	parent_process(t_data *d, int *fd, char **envp)
+{
+	int	fd2;
+
+	fd2 = open(d->file2, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	if (fd2 == -1)
+		clean_exit(d, FAIL);
+	if (dup2(fd[0], STDIN_FILENO) == -1)
+		clean_exit(d, FAIL);
+	if (dup2(fd2, STDOUT_FILENO) == -1)
+		clean_exit(d, FAIL);
+	close(fd[1]);
+	close(fd2);
+	close(fd[0]);
+	if (execve(d->path2, d->c2, envp) == -1)
+		clean_exit(d, FAIL);
+}
+
 void	pipex_process(t_data *d, char **envp)
 {
 	int		fd[2];
-	pid_t	pid;
+	pid_t	pid1;
+	pid_t	pid2;
 
 	if (pipe(fd) == -1)
 		clean_exit(d, FAIL);
-	pid = fork();
-	if (pid == -1)
+	pid1 = fork();
+	if (pid1 == -1)
 		clean_exit(d, FAIL);
-	else if (pid == 0)
-	{
-		dup2(fd[1], STDOUT_FILENO);
-		dup2(d->fd1, STDIN_FILENO);
-		close(fd[0]);
-		if (execve(d->path1, d->c1, envp) == -1)
-			clean_exit(d, FAIL);
-	}
-	waitpid(pid, NULL, 0);
-	dup2(fd[0], STDIN_FILENO);
-	dup2(d->fd2, STDOUT_FILENO);
+	else if (pid1 == 0)
+		child_process(d, fd, envp);
+	pid2 = fork();
+	if (pid2 == -1)
+		clean_exit(d, FAIL);
+	else if (pid2 == 0)
+		parent_process(d, fd, envp);
+	close(fd[0]);
 	close(fd[1]);
-	if (execve(d->path2, d->c2, envp) == -1)
-		clean_exit(d, FAIL);
-	clean_exit(d, OK);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
 }
 
 int	main(int argc, char *argv[], char **envp)
@@ -82,5 +113,6 @@ int	main(int argc, char *argv[], char **envp)
 	init_struct(&data);
 	read_stack(&data, argc, argv, envp);
 	pipex_process(&data, envp);
+	clean_exit(&data, OK);
 	return (0);
 }

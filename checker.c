@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 16:48:28 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/15 18:00:43 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/16 21:10:03 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,19 @@
 
 int	check_files(t_data *d, char *file1, char *file2)
 {
-	d->fd1 = open(file1, O_RDONLY);
-	if (d->fd1 == -1)
+	int	fd1;
+	int	fd2;
+
+	fd1 = open(file1, O_RDONLY, 0777);
+	if (fd1 == -1)
 		return (FAIL);
-	d->fd2 = open(file2, O_CREAT | O_RDWR, 0775);
-	if (d->fd2 == -1)
+	fd2 = open(file2, O_CREAT | O_RDWR, 0777);
+	if (fd2 == -1)
 		return (FAIL);
 	d->file1 = file1;
 	d->file2 = file2;
+	close(fd1);
+	close(fd2);
 	return (OK);
 }
 
@@ -77,10 +82,6 @@ void	clean_exit(t_data *d, int error)
 		free(d->path1);
 	if (d->path2)
 		free(d->path2);
-	if (d->fd1)
-		close(d->fd1);
-	if (d->fd2)
-		close(d->fd2);
 	if (d->c1)
 		free_double(d->c1);
 	if (d->c2)

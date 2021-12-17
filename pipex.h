@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:21 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/15 17:46:55 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/16 20:34:38 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ typedef struct s_data {
 	char		*path2;
 	char		*cmd1;
 	char		*cmd2;
-	int			fd1;
-	int			fd2;
 	char		**c1;
 	char		**c2;
 }				t_data;
