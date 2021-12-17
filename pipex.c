@@ -6,7 +6,7 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:24 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/17 17:42:50 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:49:29 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	read_stack(t_data *d, int argc, char **argv, char **envp)
 		clean_exit(d, FAIL);
 	else
 	{
+		// TODO: Si el comando empieza por ./ o / guardarlo directamente como path (es el path absoluto)
 		while (*envp && !ft_strnstr(*envp, PATH, 4))
 			envp++;
 		if (*envp)
