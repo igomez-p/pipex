@@ -6,23 +6,11 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:24 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/16 21:09:18 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/17 16:53:17 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	init_struct(t_data *d)
-{
-	d->file1 = NULL;
-	d->file2 = NULL;
-	d->path1 = NULL;
-	d->path2 = NULL;
-	d->cmd1 = NULL;
-	d->cmd2 = NULL;
-	d->c1 = NULL;
-	d->c2 = NULL;
-}
 
 void	read_stack(t_data *d, int argc, char **argv, char **envp)
 {
