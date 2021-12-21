@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 16:48:28 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/21 13:59:23 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/21 14:43:28 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	check_command(t_data *d, char *cmd1, char *cmd2, char **paths)
 	while (paths[++i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
-		if (!d->path1 && cmd1 && cmd1[0] != ' ')
+		if (!d->path1 && cmd1 && cmd1[0] && cmd1[0] != ' ')
 			d->path1 = ft_strjoin(tmp, cmd1);
-		if (!d->path2 && cmd2 && cmd2[0] != ' ')
+		if (!d->path2 && cmd2 && cmd2[0] && cmd2[0] != ' ')
 			d->path2 = ft_strjoin(tmp, cmd2);
 		free(tmp);
 		if (d->path1 && access(d->path1, F_OK))

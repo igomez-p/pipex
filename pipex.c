@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:24 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/21 14:29:51 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/21 14:48:13 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	read_stack(t_data *d, char **argv, char **envp)
 			d->cmd1 = argv[2];
 		if (!d->cmd2)
 			d->cmd2 = argv[3];
-		printf("cmd1:%s| cmd2:%s|\n", d->cmd1, d->cmd2);
 	}
 	else
 		clean_exit(d, FAIL);
@@ -124,11 +123,22 @@ void	pipex_process(t_data *d, char **envp)
 int	main(int argc, char *argv[], char **envp)
 {
 	t_data	data;
+	char	**tmp;
 
 	init_struct(&data);
 	if (argc != 5)
 		clean_exit(&data, FAIL);
 	read_stack(&data, argv, envp);
+	if ((!data.cmd2[0] || data.cmd2[0] == ' ') && data.cmd1 && data.cmd1[0] != ' ')
+	{
+		data.cmd2 = argv[2];
+		data.cmd1 = argv[3];
+		if (!data.path2)
+			data.path2 = ft_strdup(data.path1);
+		tmp = data.c1;
+		data.c1 = data.c2;
+		data.c2 = tmp;
+	}
 	pipex_process(&data, envp);
 	clean_exit(&data, OK);
 	return (0);
