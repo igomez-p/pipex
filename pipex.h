@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
+/*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:21 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/16 20:34:38 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/21 13:47:09 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@
 # include <errno.h>
 # include <string.h>
 
+# define OK2	2
 # define OK     1
 # define FAIL   0
 # define PATH	"PATH"
+# define CMD1	1
+# define CMD2	0
 
 typedef struct s_data {
 	char		*file1;
@@ -41,7 +44,7 @@ void	init_struct(t_data *d);
 int		check_files(t_data *d, char *file1, char *file2);
 void	check_command(t_data *d, char *cmd1, char *cmd2, char **paths);
 void	clean_exit(t_data *d, int error);
-void	read_stack(t_data *d, int argc, char **argv, char **envp);
+void	read_stack(t_data *d, char **argv, char **envp);
 void	pipex_process(t_data *d, char **envp);
 void	free_double(char **str);
 

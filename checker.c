@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
+/*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 16:48:28 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/17 17:46:44 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/21 13:59:23 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,17 @@ void	check_command(t_data *d, char *cmd1, char *cmd2, char **paths)
 	while (paths[++i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
-		if (!d->path1)
+		if (!d->path1 && cmd1 && cmd1[0] != ' ')
 			d->path1 = ft_strjoin(tmp, cmd1);
-		if (!d->path2)
+		if (!d->path2 && cmd2 && cmd2[0] != ' ')
 			d->path2 = ft_strjoin(tmp, cmd2);
 		free(tmp);
-		if (access(d->path1, F_OK))
+		if (d->path1 && access(d->path1, F_OK))
 		{
 			free(d->path1);
 			d->path1 = NULL;
 		}
-		if (access(d->path2, F_OK))
+		if (d->path2 && access(d->path2, F_OK))
 		{
 			free(d->path2);
 			d->path2 = NULL;
