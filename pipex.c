@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:24 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/21 14:09:21 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/21 14:29:51 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,15 @@ void	read_stack(t_data *d, char **argv, char **envp)
 		d->c2 = ft_split(argv[3], ' ');
 		check_command(d, d->c1[0], d->c2[0], paths);
 		free_double(paths);
-		if (!d->path1 || !d->path2 || !check_files(d, argv[1], argv[4]))
+		if ((!d->path1 && d->c1[0]) || (!d->path2 && d->c2[0]))
+			clean_exit(d, FAIL);
+		if (!check_files(d, argv[1], argv[4]))
 			clean_exit(d, FAIL);
 		if (!d->cmd1)
 			d->cmd1 = argv[2];
 		if (!d->cmd2)
 			d->cmd2 = argv[3];
+		printf("cmd1:%s| cmd2:%s|\n", d->cmd1, d->cmd2);
 	}
 	else
 		clean_exit(d, FAIL);
@@ -72,7 +75,7 @@ static void	child_process(t_data *d, int *fd, char **envp)
 	close(fd[0]);
 	close(fd1);
 	close(fd[1]);
-	if (execve(d->path1, d->c1, envp) == -1)
+	if (d->path1 && d->c1[0] && execve(d->path1, d->c1, envp) == -1)
 		clean_exit(d, FAIL);
 }
 
@@ -90,7 +93,7 @@ static void	parent_process(t_data *d, int *fd, char **envp)
 	close(fd[1]);
 	close(fd2);
 	close(fd[0]);
-	if (execve(d->path2, d->c2, envp) == -1)
+	if (d->path2 && d->c2[0] && execve(d->path2, d->c2, envp) == -1)
 		clean_exit(d, FAIL);
 }
 
