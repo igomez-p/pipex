@@ -1,0 +1,15 @@
+total 92
+-rw-r--r-- 1 kali kali     0 Dec 21 14:54 aaamigo
+-rw-r--r-- 1 kali kali  2331 Dec 21 14:43 checker.c
+-rw-r--r-- 1 kali kali  6856 Dec 24 06:41 checker.o
+-rw-r--r-- 1 kali kali    42 Dec 21 12:05 infile
+-rw-r--r-- 1 kali kali  1811 Dec 21 14:54 leak
+drwxr-xr-x 2 kali kali  4096 Dec 24 06:41 libft
+-rw-r--r-- 1 kali kali  1209 Dec 15 18:02 Makefile
+-rw-r--r-- 1 kali kali     2 Dec 24 06:36 out
+-rw-r--r-- 1 kali kali     0 Dec 24 06:42 outfile2
+-rwxr-xr-x 1 kali kali 29016 Dec 24 06:41 pipex
+-rw-r--r-- 1 kali kali  4629 Dec 24 06:41 pipex.c
+-rw-r--r-- 1 kali kali  1910 Dec 21 13:47 pipex.h
+-rw-r--r-- 1 kali kali 11896 Dec 24 06:41 pipex.o
+-rw-r--r-- 1 kali kali     7 Dec 13 12:29 README.md

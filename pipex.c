@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:24 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/21 14:48:13 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/24 06:43:42 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,26 +120,68 @@ void	pipex_process(t_data *d, char **envp)
 	waitpid(pid2, NULL, 0);
 }
 
+void	simple_process(t_data *d, char **envp)
+{
+	pid_t	pid;
+	int		fd1;
+	int		fd2;
+
+	pid = fork();
+	if (pid == -1)
+		clean_exit(d, FAIL);
+	else if (pid == 0)
+	{
+		fd1 = open(d->file1, O_RDONLY, 0644);
+		fd2 = open(d->file2, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (fd1 == -1 || fd2 == -1)
+			clean_exit(d, FAIL);
+		if (dup2(fd1, STDIN_FILENO) == -1)
+			clean_exit(d, FAIL);
+		if (dup2(fd2, STDOUT_FILENO) == -1)
+			clean_exit(d, FAIL);
+		if (d->path2 && d->c2[0] && execve(d->path2, d->c2, envp) == -1)
+			clean_exit(d, FAIL);
+	close(fd1);
+	close(fd2);
+	}
+	waitpid(pid, NULL, 0);
+}
+
+static int special_case(t_data *d, char **argv)
+{
+	char	**tmp;
+	printf("special\n");
+	if ((!d->cmd1[0] || d->cmd1[0] == ' ') && d->cmd2[0] && d->cmd2[0] != ' ')
+		return (OK);
+	else if ((!d->cmd2[0] || d->cmd2[0] == ' ') && d->cmd1[0] && d->cmd1[0] != ' ')
+	{
+		printf("aqui\n");
+		d->cmd2 = argv[2];
+		d->cmd1 = argv[3];
+		if (!d->path2)
+			d->path2 = ft_strdup(d->path1);
+		tmp = d->c1;
+		d->c1 = d->c2;
+		d->c2 = tmp;
+		return (OK);
+	}
+	else if (!d->cmd2[0] || d->cmd2[0] == ' ' || !d->cmd1[0] || d->cmd1[0] == ' ')
+		clean_exit(d, FAIL);
+	return (FAIL);
+}
+
 int	main(int argc, char *argv[], char **envp)
 {
 	t_data	data;
-	char	**tmp;
 
 	init_struct(&data);
 	if (argc != 5)
 		clean_exit(&data, FAIL);
 	read_stack(&data, argv, envp);
-	if ((!data.cmd2[0] || data.cmd2[0] == ' ') && data.cmd1 && data.cmd1[0] != ' ')
-	{
-		data.cmd2 = argv[2];
-		data.cmd1 = argv[3];
-		if (!data.path2)
-			data.path2 = ft_strdup(data.path1);
-		tmp = data.c1;
-		data.c1 = data.c2;
-		data.c2 = tmp;
-	}
-	pipex_process(&data, envp);
+	if (special_case(&data, argv))
+		simple_process(&data, envp);
+	else
+		pipex_process(&data, envp);
 	clean_exit(&data, OK);
 	return (0);
 }
