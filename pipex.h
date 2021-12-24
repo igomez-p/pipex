@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:21 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/24 10:13:10 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/24 11:27:14 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_data {
 	char		*cmd2;
 	char		**c1;
 	char		**c2;
+	int			relative;
 }				t_data;
 
 void	init_struct(t_data *d);

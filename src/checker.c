@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 16:48:28 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/24 10:22:05 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/24 11:27:25 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_struct(t_data *d)
 	d->cmd2 = NULL;
 	d->c1 = NULL;
 	d->c2 = NULL;
+	d->relative = 0;
 }
 
 int	check_files(t_data *d, char *file1, char *file2)

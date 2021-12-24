@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 08:59:07 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/24 10:23:23 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/24 11:52:30 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,27 @@ static char	*is_command(char *str)
 
 static void	relative_path(t_data *d, char **argv)
 {
-	char	**tmp;
-
 	argv[2] = is_command(argv[2]);
 	argv[3] = is_command(argv[3]);
 	if (argv[2]
 		&& (argv[2][0] == '/' || (argv[2][0] == '.' && argv[2][1] == '/')))
 	{
-		tmp = ft_split(argv[2], ' ');
-		d->path1 = ft_strdup(tmp[0]);
+		d->c1 = ft_split(argv[2], ' ');
+		d->path1 = ft_strdup(d->c1[0]);
 		d->cmd1 = argv[2];
-		free_double(tmp);
+		if (d->path1 && access(d->path1, F_OK))
+			clean_exit(d, FAIL);
+		d->relative = 1;
 	}	
 	if (argv[3]
 		&& (argv[3][0] == '/' || (argv[3][0] == '.' && argv[3][1] == '/')))
 	{
-		tmp = ft_split(argv[3], ' ');
-		d->path2 = ft_strdup(tmp[0]);
+		d->c2 = ft_split(argv[3], ' ');
+		d->path2 = ft_strdup(d->c2[0]);
 		d->cmd2 = argv[3];
-		free_double(tmp);
+		if (d->path2 && access(d->path2, F_OK))
+			clean_exit(d, FAIL);
+		d->relative = 1;
 	}
 }
 
@@ -63,9 +65,9 @@ void	read_stack(t_data *d, char **argv, char **envp)
 	if (*envp)
 	{
 		paths = ft_split(*envp + 5, ':');
-		if (argv[2])
+		if (argv[2] && !d->c1)
 			d->c1 = ft_split(argv[2], ' ');
-		if (argv[3])
+		if (argv[3] && !d->c2)
 			d->c2 = ft_split(argv[3], ' ');
 		check_command(d, d->c1, d->c2, paths);
 		free_double(paths);
@@ -76,7 +78,7 @@ void	read_stack(t_data *d, char **argv, char **envp)
 		if (!d->cmd2)
 			d->cmd2 = argv[3];
 	}
-	else
+	else if (!d->relative && (argv[2] || argv[3]))
 		clean_exit(d, FAIL);
 }
 
