@@ -6,11 +6,11 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 16:48:28 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/24 08:04:00 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/24 08:57:27 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 void	init_struct(t_data *d)
 {

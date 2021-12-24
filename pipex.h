@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:21 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/21 13:47:09 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/24 09:17:23 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	clean_exit(t_data *d, int error);
 void	read_stack(t_data *d, char **argv, char **envp);
 void	pipex_process(t_data *d, char **envp);
 void	free_double(char **str);
+int		special_case(t_data *d);
+void	simple_process(t_data *d, char **envp);
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t l);
 char	**ft_split(char const *s1, char c);
