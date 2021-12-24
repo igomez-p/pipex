@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:21 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/24 09:17:23 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/24 10:13:10 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ typedef struct s_data {
 
 void	init_struct(t_data *d);
 int		check_files(t_data *d, char *file1, char *file2);
-void	check_command(t_data *d, char *cmd1, char *cmd2, char **paths);
+void	check_command(t_data *d, char **cmd1, char **cmd2, char **paths);
 void	clean_exit(t_data *d, int error);
 void	read_stack(t_data *d, char **argv, char **envp);
 void	pipex_process(t_data *d, char **envp);
 void	free_double(char **str);
-int		special_case(t_data *d);
+int		special_case(t_data *d, char **argv);
 void	simple_process(t_data *d, char **envp);
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t l);

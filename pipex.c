@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:24 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/24 09:17:05 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/24 10:09:06 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char *argv[], char **envp)
 	if (argc != 5)
 		clean_exit(&data, FAIL);
 	read_stack(&data, argv, envp);
-	if (special_case(&data))
+	if (special_case(&data, argv))
 		simple_process(&data, envp);
 	else
 		pipex_process(&data, envp);
