@@ -6,7 +6,7 @@
 /*   By: igomez-p <igomez-p@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:37:24 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/12/24 06:43:42 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/12/24 08:18:21 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,8 @@ void	simple_process(t_data *d, char **envp)
 			clean_exit(d, FAIL);
 		if (d->path2 && d->c2[0] && execve(d->path2, d->c2, envp) == -1)
 			clean_exit(d, FAIL);
-	close(fd1);
-	close(fd2);
+		close(fd1);
+		close(fd2);
 	}
 	waitpid(pid, NULL, 0);
 }
@@ -150,12 +150,11 @@ void	simple_process(t_data *d, char **envp)
 static int special_case(t_data *d, char **argv)
 {
 	char	**tmp;
-	printf("special\n");
+
 	if ((!d->cmd1[0] || d->cmd1[0] == ' ') && d->cmd2[0] && d->cmd2[0] != ' ')
 		return (OK);
 	else if ((!d->cmd2[0] || d->cmd2[0] == ' ') && d->cmd1[0] && d->cmd1[0] != ' ')
 	{
-		printf("aqui\n");
 		d->cmd2 = argv[2];
 		d->cmd1 = argv[3];
 		if (!d->path2)
@@ -166,7 +165,21 @@ static int special_case(t_data *d, char **argv)
 		return (OK);
 	}
 	else if (!d->cmd2[0] || d->cmd2[0] == ' ' || !d->cmd1[0] || d->cmd1[0] == ' ')
-		clean_exit(d, FAIL);
+	{
+		if (d->c2 && d->c2[0])
+			free_double(d->c2);
+		else if (d->c2)
+			free(d->c2);
+		d->c2 = (char **)malloc(sizeof(char *) * 4);
+		if (!d->c2)
+			clean_exit(d, FAIL);
+		d->c2[0] = ft_strdup("/bin/cp");
+		d->c2[1] = ft_strdup(d->file1);
+		d->c2[2] = ft_strdup(d->file2);
+		d->c2[3] = NULL;
+		d->path2 = ft_strdup("/bin/cp");
+		return (OK); //clean_exit(d, FAIL);
+	}
 	return (FAIL);
 }
 
